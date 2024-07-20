@@ -64,6 +64,9 @@ def clean_print(quantity, cardname):
 '''
 def create_output_dict(added, removed, modified, a_dict, b_dict):
     temp_output = {}
+    add_output = {}
+    remove_output = {}
+    modified_output = {}
     # loop over each dictionary and build final output
     for card in added:
         # Use the correct dictionary to get the card quantities
@@ -73,6 +76,7 @@ def create_output_dict(added, removed, modified, a_dict, b_dict):
         if card in b_dict:
             positive_quantity = int(b_dict[card]) * -1
         temp_output[card] = clean_print(positive_quantity,card)
+        add_output[card] = temp_output[card]
     for card in removed:
         # Use the correct dictionary to get the card quantities
         negative_quantity = 0
@@ -81,10 +85,15 @@ def create_output_dict(added, removed, modified, a_dict, b_dict):
         if card in b_dict:
             negative_quantity = int(b_dict[card])
         temp_output[card] = clean_print(negative_quantity, card)
+        remove_output[card] = temp_output[card]
     for card in modified: 
         # get quantity from deck A get diff from deck B
         diff_value = int(b_dict[card]) - int(a_dict[card])
         temp_output[card] = clean_print(diff_value,card)
+        modified_output[card] = temp_output[card]
     
     sorted_output = dict(sorted(temp_output.items()))
-    return sorted_output
+    add_output = dict(sorted(add_output.items()))
+    remove_output = dict(sorted(remove_output.items()))
+    modified_output = dict(sorted(modified_output.items()))
+    return sorted_output, add_output, remove_output, modified_output
