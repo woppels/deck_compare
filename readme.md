@@ -1,65 +1,29 @@
-''' 
-Strats 
-    Comparison methods: 
-    a. ingest into two dictionaries (k,v) as ("card", quantity)
-        Iterate through keys of first dictionary and compare to keys of second dictionary
-            for card, qty in a
-                diff_value = str(B['card'] - A['card']) 
-                If diff_value > 0:
-                    output += "+" + B['card'] + " " + card # +2 Cavern of Souls
-                Else:
-                    output += B['card']
-    b. use sets and set difference
-        code/method copied from - https://stackoverflow.com/a/18860653 
-        def deck_compare(a, b):
-            a_keys = set(a.keys())
-            b_keys = set(b.keys())
-            shared_keys = a_keys.intersection(b_keys)
-            added = a_keys - b_keys
-            removed = b_keys - a_keys
-            modified = {o : (a[o], b[o]) for o in shared_keys if a[o] != b[o]}
-            same = set(o for o in shared_keys if a[o] == b[o])
-            return added, removed, modified, same
+# deck_transform
+Lazy deck comparison
+-----
+Take two text deckfiles and show difference between first and second input. 
+    Goal is to see what cards you have to change to switch to second deck. 
 
-        # clean print
-        def clean_print(quantity, cardname):
-            if quantity > 0: 
-                return "+" + str(quantity) + " " + cardname
-            else: 
-                return str(quantity) + " " + cardname
+    a.txt:
+        4 Ancient Tomb
+        2 Cavern of Souls 
 
-        # define the added, removed, modified before function call and def
-        output = {}
-        def create_output_dict():
-            # loop over each dictionary and build final output
-            for card,qty in added:
-                output[c] = clean_print(qty,card)
-            for card,qty in removed:
-                output[c] = clean_print(qty,card)
-            for card in modified: 
-                # get quantity from deck A get diff from deck B
-                diff_value = b[card] - a[card]
-                output[c] = clean_print(diff_value,card)
-            
-            sorted_output = dict(sorted(output.items()))
-            return sorted_output
+    b.txt:
+        3 Ancient Tomb
+        4 Cavern of Souls
 
+    Output:
+        -1 Ancient Tomb
+        +2 Cavern of Souls
 
-    Input: 
-    - Prompt user for Deck filenames
-        - If filename not found, exit
+    Dev Notes:
+        - Within a file, deck order doesn't matter. 
+        - System will not separate sideboard out for now
         
-    - Validate file contents / format
-        Nah, maybe later
-
-    - Ingest into data structures
-        4 Ancient Tomb --> x['Ancient Tomb'] = 4
-
-    - Compare
-        deck_compare(a,b)
-        
-    - Create output
-        create_output_dict()
-
-    - Display output
-'''
+    Add at some point
+        - Sideboard comparison not yet supported within same file. 
+        - Rename methods to be private
+        - Refactor / fix exception classes
+        - the sideboard must be sectioned below "SIDEBOARD:" and will be its own output
+        - Save to file as an option:
+            naming would be like a.txt + "_to_" b.txt
