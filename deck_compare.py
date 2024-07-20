@@ -1,5 +1,5 @@
 '''
-    Deck Compare
+    Deck Transform
 
     Take two text deckfiles and show difference between first and second input. 
     Goal is to see what cards you have to change to switch to second deck. 
@@ -44,11 +44,11 @@ try:
     if not os.path.isfile(a_filename):
         raise FileNotFoundError(a_filename + " file not found in current directory.")
 
-    print("Importing " + a_filename + ":\n")
+    print("Importing " + a_filename + "...\n")
     a_dict = {}
     with open(a_filename, 'r') as deck_a:
         for item in deck_a:
-            # Want to split by first space to get number of copies of card
+            # Split by first space to get number of copies of card
             qty, cardname = item.split(" ", 1)
             qty = qty.strip()
             cardname = cardname.strip()
@@ -62,11 +62,11 @@ try:
     if not os.path.isfile(b_filename):
         raise FileNotFoundError(b_filename + " file not found in current directory.")
 
-    print("Importing " + b_filename + ":\n")
+    print("Importing " + b_filename + "...\n")
     b_dict = {}
     with open(b_filename, 'r') as deck_b:
         for item in deck_b:
-            # Want to split by first space to get number of copies of card
+            # split by first space to get number of copies of card
             qty, cardname = item.split(" ", 1)
             qty = qty.strip()
             cardname = cardname.strip()
@@ -74,13 +74,23 @@ try:
 except FileNotFoundError as not_found:
     sys.exit(not_found)
 
-print("Comparing decks...")
+print("Changes to go from " + a_filename + " to " + b_filename + ":")
 # Build list of differences
 added, removed, modified, same = deck_compare(a_dict, b_dict)
+
+print("Added")
+for key in added:
+    print(key)
+print("Removed")
+for key in removed: 
+    print(key)
+print("Modified")
+for key in modified: 
+    print(key, modified[key])
 
 # Build output list
 output = create_output_dict(added, removed, modified, a_dict, b_dict)
 
-print("\nComparison complete")
+# Print output list
 for key in output:
     print(output[key])
