@@ -1,4 +1,4 @@
-# deck_transform
+# deck_compare
 Lazy deck comparison
 -----
 Take two text deckfiles and show difference between first and second input. 
