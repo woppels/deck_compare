@@ -69,17 +69,17 @@ def create_output_dict(added, removed, modified, a_dict, b_dict):
         # Use the correct dictionary to get the card quantities
         positive_quantity = 0
         if card in a_dict:
-            positive_quantity = int(a_dict[card])
+            positive_quantity = int(a_dict[card]) * -1
         if card in b_dict:
-            positive_quantity = int(b_dict[card])
+            positive_quantity = int(b_dict[card]) * -1
         temp_output[card] = clean_print(positive_quantity,card)
     for card in removed:
         # Use the correct dictionary to get the card quantities
         negative_quantity = 0
         if card in a_dict:
-            negative_quantity = int(a_dict[card]) * -1
+            negative_quantity = int(a_dict[card])
         if card in b_dict:
-            negative_quantity = int(b_dict[card]) * -1
+            negative_quantity = int(b_dict[card])
         temp_output[card] = clean_print(negative_quantity, card)
     for card in modified: 
         # get quantity from deck A get diff from deck B

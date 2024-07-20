@@ -36,7 +36,7 @@ from constants import *
 from funcs import *
 
 # Print Introduction
-print(intro_text)
+# print(intro_text)
 
 # A-Deck Prompt
 a_filename = input("Provide the name of the first deck including .txt extension: ")

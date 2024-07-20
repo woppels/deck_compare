@@ -1,6 +1,6 @@
 # Intro text
 intro_text = (
-        'Welcome to Deck Transform\n\n'
+        'Welcome to Deck Compare\n\n'
         'Take two text deckfiles and show difference between first and second input.\n'
         'Use to see what cards you have to change to switch to second deck.\n'
 
