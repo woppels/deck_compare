@@ -8,16 +8,29 @@ Take two text deckfiles and show difference between first and second input.
         4 Ancient Tomb
         2 Cavern of Souls 
 
+        SIDEBOARD:
+        1 Elvish Spirit Guide
+
     b.txt:
         3 Ancient Tomb
         4 Cavern of Souls
 
+        SIDEBOARD: 
+        1 Simian Spirit Guide
+
     Output:
+        Changes to go from a.txt to b.txt:
+        ---Maindeck Changes---
         -1 Ancient Tomb
         +2 Cavern of Souls
 
+        ---Sideboard Changes---
+        -1 Elvish Spirit Guide
+        +1 Simian Spirit Guide
+
     Dev Notes:
         - Within a file, deck order doesn't matter. 
+        - Sideboard must be within file as SIDEBOARD:
         
     Add at some point 
         - Refactor / fix exception classes

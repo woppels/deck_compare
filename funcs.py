@@ -19,7 +19,7 @@ def process_file(filename):
             for item in deck:
                 # Split by first space to get number of copies of card
                 try:  
-                    if "SIDEBOARD:" in item:
+                    if "SIDEBOARD:" in item.upper():
                         for sb_item in deck:
                             sb_qty, sb_cardname = sb_item.split(" ", 1)
                             sb_dict[sb_cardname.strip()] = sb_qty.strip()
