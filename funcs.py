@@ -1,3 +1,40 @@
+import sys
+import os
+
+'''
+    Ingests and processes files
+    Passing line that meets critera: https://stackoverflow.com/a/32953399
+    Looping within line that meets criteria: https://stackoverflow.com/a/27805988
+    Ignoring ValueError: https://stackoverflow.com/a/73108528 
+'''
+def process_file(filename): 
+    dict = {}
+    sb_dict = {}
+    try: 
+        if not os.path.isfile(filename):
+            raise FileNotFoundError(filename + " file not found in current directory.")
+
+        print("Importing " + filename + "...\n")
+        with open(filename, 'r') as deck:
+            for item in deck:
+                # Split by first space to get number of copies of card
+                try:  
+                    if "SIDEBOARD:" in item:
+                        for sb_item in deck:
+                            sb_qty, sb_cardname = sb_item.split(" ", 1)
+                            sb_dict[sb_cardname.strip()] = sb_qty.strip()
+                    else:
+                        qty, cardname = item.split(" ", 1)
+                        qty = qty.strip()
+                        cardname = cardname.strip()
+                        dict[cardname] = qty
+                except ValueError:
+                    pass
+    except FileNotFoundError as not_found:
+        sys.exit(not_found)
+    
+    return dict, sb_dict
+
 ''' 
     Deck Comparison Function
     Code/method copied from - https://stackoverflow.com/a/18860653 
