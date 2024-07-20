@@ -18,12 +18,13 @@ Take two text deckfiles and show difference between first and second input.
 
     Dev Notes:
         - Within a file, deck order doesn't matter. 
-        - System will not separate sideboard out for now
         
-    Add at some point
-        - Sideboard comparison not yet supported within same file. 
-        - Rename methods to be private
+    Add at some point 
         - Refactor / fix exception classes
-        - the sideboard must be sectioned below "SIDEBOARD:" and will be its own output
         - Save to file as an option:
             naming would be like a.txt + "_to_" b.txt
+        - File Validation:
+            - Use longest card name x200 for battle of wits testing purposes (limit filesize to this)
+            - Text files only
+        - Host on site for drag and drop or paste input
+        - Update code to take file input if through a lambda
