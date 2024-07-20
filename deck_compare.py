@@ -46,13 +46,22 @@ try:
 
     print("Importing " + a_filename + "...\n")
     a_dict = {}
+    a_sb_dict = {}
     with open(a_filename, 'r') as deck_a:
         for item in deck_a:
             # Split by first space to get number of copies of card
-            qty, cardname = item.split(" ", 1)
-            qty = qty.strip()
-            cardname = cardname.strip()
-            a_dict[cardname] = qty
+            try:  
+                if "SIDEBOARD:" in item:
+                    for sb_item in deck_a:
+                        sb_qty, sb_cardname = sb_item.split(" ", 1)
+                        a_sb_dict[sb_cardname.strip()] = sb_qty.strip()
+                else:
+                    qty, cardname = item.split(" ", 1)
+                    qty = qty.strip()
+                    cardname = cardname.strip()
+                    a_dict[cardname] = qty
+            except ValueError:
+                pass
 except FileNotFoundError as not_found:
     sys.exit(not_found)
 
@@ -84,9 +93,10 @@ for key in added:
 print("Removed")
 for key in removed: 
     print(key)
-print("Modified")
 for key in modified: 
     print(key, modified[key])
+for key in a_sb_dict: 
+    print(key)
 
 # Build output list
 output = create_output_dict(added, removed, modified, a_dict, b_dict)
