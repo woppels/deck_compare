@@ -47,23 +47,18 @@ b_filename = input("Provide the name of the second deck including .txt extension
 b_dict, b_sb_dict = process_file(b_filename)
 
 print("Changes to go from " + a_filename + " to " + b_filename + ":")
-# Build list of differences
+# Build list of differences for maindeck
 added, removed, modified, same = deck_compare(a_dict, b_dict)
-
-print("Added")
-for key in added:
-    print(key)
-print("Removed")
-for key in removed: 
-    print(key)
-for key in modified: 
-    print(key, modified[key])
-for key in a_sb_dict: 
-    print(key)
-
-# Build output list
 output = create_output_dict(added, removed, modified, a_dict, b_dict)
+
+# Build list of differences for sideboard
+sb_added, sb_removed, sb_modified, sb_same = deck_compare(a_sb_dict, b_sb_dict)
+sb_output = create_output_dict(sb_added, sb_removed, sb_modified, a_sb_dict, b_sb_dict)
 
 # Print output list
 for key in output:
     print(output[key])
+    
+print("\nSideboard Changes:")
+for key in sb_output:
+    print(sb_output[key])
