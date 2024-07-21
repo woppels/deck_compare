@@ -1,5 +1,5 @@
 # Intro text
-intro_text = (
+INTRO_TEXT = (
         'Welcome to Deck Compare\n\n'
         'Take two text deckfiles and show difference between first and second input.\n'
         'Use to see what cards you have to change to switch to second deck.\n'
@@ -19,3 +19,12 @@ intro_text = (
 
 split_char = " "
 split_num = 1
+
+ADDITION = "Addition"
+REMOVAL = "Removal"
+MODIFIED = "Modified"
+SAME = "Same"
+NOCHANGE = "No Change"
+
+MAINDECK_BANNER = "---Maindeck Changes---"
+SIDEBOARD_BANNER = "\n---Sideboard Changes---"

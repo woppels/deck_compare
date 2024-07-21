@@ -32,12 +32,12 @@
 # Define imports
 import sys
 import os
-from constants import *
+import constants
 from funcs import *
 from card import Card
 
 # Print Introduction
-# print(intro_text)
+# print(constants.INTRO_TEXT)
 
 # A-Deck Prompt
 a_filename = input("Provide the name of the first deck including .txt extension: ")
@@ -63,47 +63,25 @@ add_list, removal_list, modified_list, cardlist = create_output_dict(added, remo
 sb_added, sb_removed, sb_modified, sb_same = deck_compare(a_sb_dict, b_sb_dict)
 sb_add_list, sb_removal_list, sb_modified_list, sb_cardlist = create_output_dict(sb_added, sb_removed, sb_modified, a_sb_dict, b_sb_dict)
 
-# Print output list
+# Print outputs
+# Print in alphabetical order
 if not display_by_category:
-    print("---Maindeck Changes---")
-    # for key in output:
-    #     print(output[key])
+    print(constants.MAINDECK_BANNER)
     for card in cardlist: 
-        print(card + " " + card.change_type)
+        print(card)
 
-    print("\n---Sideboard Changes---")
-    # for key in sb_output:
-    #     print(sb_output[key])
+    print(constants.SIDEBOARD_BANNER)
     for sb_card in sb_cardlist: 
-        print(sb_card + " " + sb_card.change_type)
+        print(sb_card)
 
-# else: 
-#     print("---Split by Change Type---")
-#     if len(add_list) > 0:
-#         print("Additions:")
-#         for card in add_list:
-#             print(card)
-#     if len(removal_list) > 0:
-#         print("Removals:")
-#         for card in add_list:
-#             print(card)
-#     if len(modified_list) > 0:
-#         print("Modified:")
-#         for card in add_list:
-#             print(card)
-#     print("Removals:")
-#     for key in a_op:
-#         print(a_op[key])
-#     print("Modified:")
-#     for key in m_op:
-#         print(m_op[key])
-#     print("\n---Sideboard Changes---")
-#     print("Additions:")
-#     for key in sb_r_op:
-#         print(sb_r_op[key])
-#     print("Removals:")
-#     for key in sb_a_op:
-#         print(sb_a_op[key])
-#     print("Modified:")
-#     for key in sb_m_op:
-#         print(sb_m_op[key])
+# Print by category
+else: 
+    print(constants.MAINDECK_BANNER)
+    change_type_print_helper(add_list, constants.ADDITION)
+    change_type_print_helper(removal_list, constants.REMOVAL)
+    change_type_print_helper(modified_list, constants.MODIFIED)
+
+    print(constants.SIDEBOARD_BANNER)
+    change_type_print_helper(sb_add_list, constants.ADDITION)
+    change_type_print_helper(sb_removal_list, constants.REMOVAL)
+    change_type_print_helper(sb_modified_list, constants.MODIFIED)

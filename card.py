@@ -20,7 +20,10 @@ def print_quantity(quantity):
     else: 
         return str(quantity)
 
-
+'''
+    Print quantity and card name
+    Example: +4 Ancient Tomb
+'''
 def print_quantity_and_card(quantity, card_name):
     return print_quantity(quantity) + " " + card_name
 

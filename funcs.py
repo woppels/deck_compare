@@ -49,28 +49,11 @@ def deck_compare(a, b):
     modified = {o : (a[o], b[o]) for o in shared_keys if a[o] != b[o]}
     same = set(o for o in shared_keys if a[o] == b[o])
     return added, removed, modified, same
-    
-'''
-    Print with a "+" for additions
-    Print with a "-" for subtractions
-'''
-def print_quantity(quantity):
-    if int(quantity) > 0: 
-        return "+" + str(quantity)
-    else: 
-        return str(quantity)
-'''
-    Print quantity and card name
-    Example: +4 Ancient Tomb
-'''
-def print_quantity_and_card(quantity, card_name):
-    return print_quantity(quantity) + " " + card_name
 
 '''
     Build output list
 '''
 def create_output_dict(added, removed, modified, a_dict, b_dict):
-    temp_output = {}
     add_list = []
     removal_list = []
     modified_list = []
@@ -83,8 +66,7 @@ def create_output_dict(added, removed, modified, a_dict, b_dict):
             quantity = int(a_dict[item])
         if item in b_dict:
             quantity = int(b_dict[item])
-        temp_output[item] = print_quantity_and_card(quantity, item)
-        card = Card(item, print_quantity(quantity), "Addition")
+        card = Card(item, quantity, "Addition")
         output_list.append(card)
         add_list.append(card)
     for item in removed:
@@ -94,22 +76,28 @@ def create_output_dict(added, removed, modified, a_dict, b_dict):
             negative_quantity = int(a_dict[item]) * -1
         if item in b_dict:
             negative_quantity = int(b_dict[item]) * -1
-        temp_output[item] = print_quantity_and_card(negative_quantity, item)
         card = Card(item, negative_quantity, "Removal")
         output_list.append(card)
         removal_list.append(card)
     for item in modified: 
         # get quantity from deck A get diff from deck B
         diff_value = int(b_dict[item]) - int(a_dict[item])
-        temp_output[item] = print_quantity_and_card(diff_value,item)
-        card = Card(item, print_quantity(diff_value), "Modified")
+        card = Card(item, diff_value, "Modified")
         output_list.append(card)
         modified_list.append(card)
 
     return (
-        dict(sorted(temp_output.items()))
-        , sorted(add_list)
+        sorted(add_list)
         , sorted(removal_list)
         , sorted(modified_list)
         , sorted(output_list)
     )
+
+'''
+    Takes an input list and change type to print list of cards for corresponding type
+'''
+def change_type_print_helper(input_list, change_type):
+    if len(input_list) > 0:
+        print(change_type)
+        for card in input_list:
+            print(card)
