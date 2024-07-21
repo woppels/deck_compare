@@ -34,6 +34,7 @@ import sys
 import os
 from constants import *
 from funcs import *
+from card import Card
 
 # Print Introduction
 # print(intro_text)
@@ -56,40 +57,53 @@ else:
 print("Changes to go from " + a_filename + " to " + b_filename + ":")
 # Build list of differences for maindeck
 added, removed, modified, same = deck_compare(a_dict, b_dict)
-output, a_op, r_op, m_op = create_output_dict(added, removed, modified, a_dict, b_dict)
+add_list, removal_list, modified_list, cardlist = create_output_dict(added, removed, modified, a_dict, b_dict)
 
 # Build list of differences for sideboard
 sb_added, sb_removed, sb_modified, sb_same = deck_compare(a_sb_dict, b_sb_dict)
-sb_output, sb_a_op, sb_r_op, sb_m_op = create_output_dict(sb_added, sb_removed, sb_modified, a_sb_dict, b_sb_dict)
+sb_add_list, sb_removal_list, sb_modified_list, sb_cardlist = create_output_dict(sb_added, sb_removed, sb_modified, a_sb_dict, b_sb_dict)
 
 # Print output list
 if not display_by_category:
     print("---Maindeck Changes---")
-    for key in output:
-        print(output[key])
+    # for key in output:
+    #     print(output[key])
+    for card in cardlist: 
+        print(card + " " + card.change_type)
 
     print("\n---Sideboard Changes---")
-    for key in sb_output:
-        print(sb_output[key])
+    # for key in sb_output:
+    #     print(sb_output[key])
+    for sb_card in sb_cardlist: 
+        print(sb_card + " " + sb_card.change_type)
 
-else: 
-    print("---Split by Change Type---")
-    print("Additions:")
-    for key in r_op:
-        print(r_op[key])
-    print("Removals:")
-    for key in a_op:
-        print(a_op[key])
-    print("Modified:")
-    for key in m_op:
-        print(m_op[key])
-    print("\n---Sideboard Changes---")
-    print("Additions:")
-    for key in sb_r_op:
-        print(sb_r_op[key])
-    print("Removals:")
-    for key in sb_a_op:
-        print(sb_a_op[key])
-    print("Modified:")
-    for key in sb_m_op:
-        print(sb_m_op[key])
+# else: 
+#     print("---Split by Change Type---")
+#     if len(add_list) > 0:
+#         print("Additions:")
+#         for card in add_list:
+#             print(card)
+#     if len(removal_list) > 0:
+#         print("Removals:")
+#         for card in add_list:
+#             print(card)
+#     if len(modified_list) > 0:
+#         print("Modified:")
+#         for card in add_list:
+#             print(card)
+#     print("Removals:")
+#     for key in a_op:
+#         print(a_op[key])
+#     print("Modified:")
+#     for key in m_op:
+#         print(m_op[key])
+#     print("\n---Sideboard Changes---")
+#     print("Additions:")
+#     for key in sb_r_op:
+#         print(sb_r_op[key])
+#     print("Removals:")
+#     for key in sb_a_op:
+#         print(sb_a_op[key])
+#     print("Modified:")
+#     for key in sb_m_op:
+#         print(sb_m_op[key])
