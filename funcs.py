@@ -1,5 +1,6 @@
 import sys
 import os
+from card import Card
 
 '''
     Ingests and processes files
@@ -43,57 +44,60 @@ def deck_compare(a, b):
     a_keys = set(a.keys())
     b_keys = set(b.keys())
     shared_keys = a_keys.intersection(b_keys)
-    added = a_keys - b_keys
-    removed = b_keys - a_keys
+    added = b_keys - a_keys # Everything in B that is not in A
+    removed = a_keys - b_keys # Everything in A that is not in B
     modified = {o : (a[o], b[o]) for o in shared_keys if a[o] != b[o]}
     same = set(o for o in shared_keys if a[o] == b[o])
     return added, removed, modified, same
 
 '''
-    Print with a "+" for additions
-    Print with a "-" for subtractions
-'''
-def clean_print(quantity, cardname):
-    if int(quantity) > 0: 
-        return "+" + str(quantity) + " " + cardname
-    else: 
-        return str(quantity) + " " + cardname
-
-'''
     Build output list
 '''
 def create_output_dict(added, removed, modified, a_dict, b_dict):
-    temp_output = {}
-    add_output = {}
-    remove_output = {}
-    modified_output = {}
+    add_list = []
+    removal_list = []
+    modified_list = []
+    output_list = []
     # loop over each dictionary and build final output
-    for card in added:
-        # Use the correct dictionary to get the card quantities
-        positive_quantity = 0
-        if card in a_dict:
-            positive_quantity = int(a_dict[card]) * -1
-        if card in b_dict:
-            positive_quantity = int(b_dict[card]) * -1
-        temp_output[card] = clean_print(positive_quantity,card)
-        add_output[card] = temp_output[card]
-    for card in removed:
-        # Use the correct dictionary to get the card quantities
-        negative_quantity = 0
-        if card in a_dict:
-            negative_quantity = int(a_dict[card])
-        if card in b_dict:
-            negative_quantity = int(b_dict[card])
-        temp_output[card] = clean_print(negative_quantity, card)
-        remove_output[card] = temp_output[card]
-    for card in modified: 
+    for item in added:
+        # Cards that are in B, but not in A
+        # Think of it as operation that needs to occur to turn A into B
+        if item in a_dict:
+            quantity = int(a_dict[item])
+        if item in b_dict:
+            quantity = int(b_dict[item])
+        card = Card(item, quantity, "Addition")
+        output_list.append(card)
+        add_list.append(card)
+    for item in removed:
+        # Cards that were in A, but not in B
+        # Think of it as a subtract op from A that needs to occur to create B
+        if item in a_dict:
+            negative_quantity = int(a_dict[item]) * -1
+        if item in b_dict:
+            negative_quantity = int(b_dict[item]) * -1
+        card = Card(item, negative_quantity, "Removal")
+        output_list.append(card)
+        removal_list.append(card)
+    for item in modified: 
         # get quantity from deck A get diff from deck B
-        diff_value = int(b_dict[card]) - int(a_dict[card])
-        temp_output[card] = clean_print(diff_value,card)
-        modified_output[card] = temp_output[card]
-    
-    sorted_output = dict(sorted(temp_output.items()))
-    add_output = dict(sorted(add_output.items()))
-    remove_output = dict(sorted(remove_output.items()))
-    modified_output = dict(sorted(modified_output.items()))
-    return sorted_output, add_output, remove_output, modified_output
+        diff_value = int(b_dict[item]) - int(a_dict[item])
+        card = Card(item, diff_value, "Modified")
+        output_list.append(card)
+        modified_list.append(card)
+
+    return (
+        sorted(add_list)
+        , sorted(removal_list)
+        , sorted(modified_list)
+        , sorted(output_list)
+    )
+
+'''
+    Takes an input list and change type to print list of cards for corresponding type
+'''
+def change_type_print_helper(input_list, change_type):
+    if len(input_list) > 0:
+        print(change_type)
+        for card in input_list:
+            print(card)

@@ -62,4 +62,14 @@ Strats
         create_output_dict()
 
     - Display output
+
+
+    class Card:
+        properties: 
+            - card_name
+            - quantity (can be negative)
+            - change_type as add, remove, or modify
+                - negative quantity must be a remove or modify
+                - positive quantity must be an add or modify
+
 '''
