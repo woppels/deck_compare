@@ -12,6 +12,8 @@
     - Limit to 100 cards? 
     - Class validation    
 
+    - Lambda Responses
+
     Logging: 
     - Log invocation
     - Errors
@@ -23,11 +25,19 @@
     - Output list with modifiers
 
     Big Things: 
+    - Make simple lambda
+    - Add in code
+    - Add code to let it take in one file
+    - Add code to let it take in multiple files 
+    - Add validation 
+
     - Convert code to work with lambda
         - Don't take files one at a time as user input (update arguments)
         - Validation 
         - How to send file in lambda event
         - How to see what kind of event the lambda is
+            - You can define this in the event
+    - Make example lambda
     - Host and run code on lambda
     - Make front-end 
         - Front-end validation
@@ -44,6 +54,8 @@
         - Authorizer
         - Events
             - Type of invent dictates how the lambda runs
+    - How to invoke lambda from front-end
+    - How to handle response from lambda
     - Deploy to some CDN / Host it somewhere
 
     Testing: 
